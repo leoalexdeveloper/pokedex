@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link :to="path">{{title}}</router-link>
+        <router-link :class="classes" :to="path">{{title}}</router-link>
     </div>
 </template>
 
@@ -13,6 +13,10 @@ const props = defineProps({
 		required:true
 	},
 	title:{
+		type:String,
+		required:true
+	},
+	classes:{
 		type:String,
 		required:true
 	}
