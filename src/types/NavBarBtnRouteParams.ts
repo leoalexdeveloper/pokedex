@@ -1,0 +1,1 @@
+export type TPath = {name:string, params:{[key:string]:string}}
