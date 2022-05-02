@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="nav-bar">
+        <nav class="nav-bar col-12 border">
             <NavBarBtnDefaultRoute path="/" title="Home"/>
             <NavBarBtntRouteParams :path="editTeamBtnPath" title="Edit Team"/>
         </nav>
