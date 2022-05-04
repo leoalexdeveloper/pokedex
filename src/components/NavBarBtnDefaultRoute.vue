@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { defineProps } from "vue"
 
-const props = defineProps({
+defineProps({
 	path:{
 		type:String,
 		required:true

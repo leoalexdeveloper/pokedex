@@ -2,3 +2,6 @@
     width: $w;
     height: $h;
 }
+@mixin back($c){
+    background:$c
+}

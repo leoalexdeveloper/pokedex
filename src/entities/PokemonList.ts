@@ -3,9 +3,29 @@ import IPokemon from "../interfaces/Pokemon"
 
 export default class PokemonList<T extends IPokemon> implements IPokemonList<IPokemon>{
 	constructor(
-        public count:number,
-        public next: string,
-        public previous: string,
-        public results: T[]
-	){}
+    public count:number,
+    public next: string,
+    public previous: string,
+    public results: T[]
+	){
+		this.setPokemonId()
+		this.setPokemonImg()
+	}
+
+	setPokemonId(){
+		this.results.forEach(pokemon => {
+			const withoutLastSlash = pokemon.url.substring(0, pokemon.url.length-1)
+			const indexOfLastSlash = withoutLastSlash.lastIndexOf("/")
+			const id = withoutLastSlash.substring(indexOfLastSlash+1, withoutLastSlash.length)
+			pokemon["id"] = Number(id)
+		})
+	}
+
+	setPokemonImg(){
+		this.results.forEach(pokemon => {
+			const mainImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`
+			const altImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`
+			pokemon["img"] = {mainImg, altImg}
+		})
+	}
 }
