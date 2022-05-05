@@ -8,9 +8,16 @@ const routes = [
 		component:()=>import(/**webpackChunkName*/"../views/Create_View.vue"),
 		children:[
 			{
-				path:":teamName?/:page?",
+				path:":teamName?",
 				name:"CreateTeam",
 				component:()=>import(/**webpackChunkName*/"../views/CreateTeam_View.vue"),
+				children:[
+					{
+						path:":page?",
+						name:"ShowPickPokemons",
+						component:()=>import(/**webpackChunkName*/"../components/PokemonPickBoard.vue"),
+					}
+				]
 			}
 		]
 	}

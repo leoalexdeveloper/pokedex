@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="w-100 d-flex justify-content-center position-absolute bottom-0">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
 
               <div v-if:="firstConditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:first()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:first()}}">
                   <li class="page-item"><a class="page-link" href="#">First</a></li>
                 </router-link>
               </div>
@@ -13,7 +13,7 @@
               </div>
 
               <div v-if:="back10Conditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:back10()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:back10()}}">
                   <li class="page-item"><a class="page-link" href="#">Back10</a></li>
                 </router-link>
               </div>
@@ -22,7 +22,7 @@
               </div>
 
               <div v-if:="previousConditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:previous()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:previous()}}">
                   <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                 </router-link>
               </div>
@@ -30,8 +30,10 @@
                 <li disabled class="page-item"><a class="page-link" href="#">Previous</a></li>
               </div>
 
+              <li class="page-item"><a class="page-link" href="#">{{route.params.page}}</a></li>
+
               <div v-if:="nextConditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:next()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:next()}}">
                   <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </router-link>
               </div>
@@ -40,7 +42,7 @@
               </div>
 
               <div v-if:="forward10Conditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:forward10()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:forward10()}}">
                   <li class="page-item"><a class="page-link" href="#">Forward10</a></li>
                 </router-link>
               </div>
@@ -49,7 +51,7 @@
               </div>
 
               <div v-if:="lastConditional()">
-                <router-link :to="{name:`CreateTeam`, params:{teamName:teamName, page:last()}}">
+                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:last()}}">
                   <li class="page-item"><a class="page-link" href="#">Last</a></li>
                 </router-link>
               </div>
@@ -64,27 +66,27 @@
 
 <script lang="ts" setup>
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Ref, ref, onUpdated, onMounted, defineEmits, watch } from "vue"
+
+//imports libs
+import { Ref, ref, onUpdated, defineEmits } from "vue"
 import { useStore } from "vuex"
 import { useRoute } from "vue-router"
-import type { TPaginationResult } from "../types/PaginationComp"
-//emit
-const emit = defineEmits(["paginate"], )
 
-//data
+//imports types
+import type { TPaginationResult } from "../types/PaginationComp"
+
+//emits
+const emit = defineEmits(["paginate"])
+
+//data libs
 const store = useStore()
 const route = useRoute()
 
+//data var
 const teamName:Ref<string>          = ref(String(route.params.teamName))
 const maxPokemonFromApi:Ref<number> = ref(store.state.pokemons.pokemonList.count)
 const maxPokemonPerPage:Ref<number> = ref(store.state.pokemons.maxPokemonPerPage)
 const totalPageNumber:Ref<number>   = ref(Math.round(maxPokemonFromApi.value / maxPokemonPerPage.value))
-const selectedPage:Ref<number> = ref(0)
-
-//watch
-watch(selectedPage, ()=>{
-	paginate()
-})
 
 //methods
 const first     = () => 1
@@ -95,27 +97,28 @@ const forward10 = () => Number(route.params.page) + 10
 const last      = () => totalPageNumber.value
 
 const paginate = () => {
-	const offset:number            = (Number(route.params.page) * store.state.pokemons.maxPokemonPerPage) - store.state.pokemons.maxPokemonPerPage
+	const offset:number            = (store.state.pokemons.currentEditPage * store.state.pokemons.maxPokemonPerPage) - store.state.pokemons.maxPokemonPerPage
 	const limit:number             = store.state.pokemons.maxPokemonPerPage
 	const result:TPaginationResult = [offset, limit]
 	emit("paginate", result)
 }
 
+const updateVuexCurrentEditPage = () => {
+	store.commit("setCurrentEditPage", Number(route.params.page))
+}
+
 //conditional methods
 const firstConditional     = () => Number(route.params.page) > 1
-const back10Conditional    = () => Number(route.params.page) >= 10
+const back10Conditional    = () => Number(route.params.page) > 10
 const previousConditional  = () => Number(route.params.page) > 1
 const nextConditional      = () => Number(route.params.page) < totalPageNumber.value
 const forward10Conditional = () => Number(route.params.page) < totalPageNumber.value - 10
 const lastConditional      = () => Number(route.params.page) < totalPageNumber.value
 
 //hooks
-onMounted(()=>{
-	selectedPage.value = Number(route.params.page)
-})
-
 onUpdated(()=>{
-	store.commit("setCurrentEditPage", Number(route.params.page))
+	updateVuexCurrentEditPage()
+	paginate()
 })
 
 </script>

@@ -1,24 +1,16 @@
 <template>
     <div>
-        <router-link :class="classes" :to="path">{{title}}</router-link>
+        <router-link :class="classes"
+                      :to="{name:`ShowPickPokemons`, params:{teamName:store.state.pokemons.currentTeamObject.name, page:store.state.pokemons.currentEditPage}}">
+                      {{title}}</router-link>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue"
+import { useStore } from "vuex"
 
-defineProps({
-	path:{
-		type:Object,
-		required:true
-	},
-	title:{
-		type:String,
-		required:true
-	},
-	classes:{
-		type:String,
-		required:true
-	}
-})
+const store = useStore()
+
+const classes = "btn btn-primary"
+const title = "Edit Team"
 </script>

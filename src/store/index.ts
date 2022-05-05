@@ -24,7 +24,8 @@ export default createStore({
 					pokemonList: {},
 					currentTeamObject: {},
 					currentEditTeam: [],
-					currentEditPage: 1,
+					currentEditPage: 1 as number,
+					initialPagination: [0,8],
 					maxPokemonPerPage: 8
 				}
 			},

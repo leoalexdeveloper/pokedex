@@ -1,0 +1,12 @@
+.pick-pokemon-card{
+  min-width: 300px;
+  max-width: 300px;
+  min-height:auto;
+  max-height:auto;
+}
+.pick-pokemon-card-img{
+  max-width:300px;
+  height:200px;
+  object-fit:contain;
+  object-position:center
+}
