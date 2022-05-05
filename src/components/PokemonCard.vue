@@ -6,23 +6,55 @@
           <img class="pick-pokemon-card-img img-fluid p-2" :src="pokemon.img.altImg" alt="" title="">
       </object>
       <div class="col-12 d-flex flex-column">
-        <button class="btn btn-primary my-2">Choose</button>
-        <button class="btn btn-primary my-1">Detail</button>
+        <button v-if:="hideChooseBtn()" v-on:click="pickPokemon" class="btn btn-primary my-2 rounded-0">Choose</button>
+        <button class="btn btn-primary my-0 rounded-0 rounded-bottom">Detail</button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps} from "vue"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+//import vue lib
+import { defineProps, reactive, Ref, ref } from "vue"
+import { useStore } from "vuex"
+
+//import interfaces
 import IPokemon from "../interfaces/Pokemon"
 
-defineProps({
+//data vue lib
+const store = useStore()
+
+const props = defineProps({
 	pokemon: {
 		type:Object as ()=> IPokemon,
 		required: true
 	}
 })
+
+//data var
+const pokemonList:IPokemon[] = reactive(store.state.pokemons.pokemonList.results)
+const currentEditTeam:IPokemon[] = reactive(store.state.pokemons.currentEditTeam)
+const maxPokemonsOnTeam:Ref<number> = ref<number>(store.state.pokemons.maxPokemonsOnTeam)
+
+//methods
+const pickPokemon = () => {
+	const findSlectedPokemon = pokemonList.find((pokemon:IPokemon) => pokemon.id === props.pokemon.id)
+	store.commit("setPokemonOnCurrentEditTeam", findSlectedPokemon)
+}
+
+const isPokemonInMyTeam = () => {
+	const currentEditTeam = store.state.pokemons.currentEditTeam
+	return currentEditTeam.find((pokemon:IPokemon) => pokemon.id === props.pokemon.id)
+}
+
+const isTeamAreFully = () => {
+	return Number(maxPokemonsOnTeam.value) === Number(currentEditTeam.length)
+}
+
+const hideChooseBtn = () => {
+	return !(isTeamAreFully() || isPokemonInMyTeam()) ? true : false
+}
 </script>
 
 <style lang="sass" scoped>

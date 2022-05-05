@@ -7,16 +7,20 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, ref, Ref, reactive } from "vue"
+//imports vue libs
 import { useStore } from "vuex"
 import { useRoute } from "vue-router"
+
+//imports components
 import type { TPaginationResult } from "../types/PaginationComp"
-import PokemonPickBoard from "../components/PokemonPickBoard.vue"
 import PaginationComp from "../components/PaginationComp.vue"
 import PokemonMountTeamBoard from "../components/PokemonMountTeamBoard.vue"
+
+//data vue libs
 const store = useStore()
 const route = useRoute()
 
+//methods
 const callPaginatedPokemons  = ([offset, limit]:TPaginationResult)=> {
 	console.log(offset, limit)
 	store.dispatch("getPokemonListFromApi", `pokemon?limit=${limit}&offset=${offset}`)
