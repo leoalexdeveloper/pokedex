@@ -1,8 +1,8 @@
 <template>
     <div class="create-container">
-        <FormComp v-if:="!hasTeamObject" v-on:submitFormData="createCurrentTeamObject"/>
-
-        <router-view v-if:="hasTeamObject"></router-view>
+        <FormComp v-if:="hasTeamObject" v-on:submitFormData="createCurrentTeamObject"/>
+        <router-view v-if:="!hasTeamObject" ></router-view>
+        {{hasTeamObject}}
     </div>
 </template>
 
@@ -42,7 +42,7 @@ const createCurrentTeamObject = (teamName:string) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const hasTeamObject = computed(()=>{
-	return (Object.keys(currentTeamObject).length > 0) ? true : false
+	return (Object.keys(currentTeamObject).length === 0) ? true : false
 })
 
 //hooks

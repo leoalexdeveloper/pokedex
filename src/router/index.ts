@@ -8,7 +8,7 @@ const routes = [
 		component:()=>import(/**webpackChunkName*/"../views/Create_View.vue"),
 		children:[
 			{
-				path:":teamName?",
+				path:"/create/:teamName?",
 				name:"CreateTeam",
 				component:()=>import(/**webpackChunkName*/"../views/CreateTeam_View.vue"),
 				children:[

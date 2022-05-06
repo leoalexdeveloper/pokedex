@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link :class="classes"
-                      :to="{name:`ShowPickPokemons`, params:{teamName:store.state.pokemons.currentTeamObject.name, page:store.state.pokemons.currentEditPage}}">
+                      :to="{name:`ShowPickPokemons`, params:{teamName:store.state.pokemons.currentTeamObject?.name, page:store.state.pokemons.currentEditPage}}">
                       {{title}}</router-link>
     </div>
 </template>

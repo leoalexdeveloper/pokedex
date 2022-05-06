@@ -27,6 +27,7 @@ export default createStore({
 					pokemonList: {},
 					currentTeamObject: {},
 					currentEditTeam: [],
+					savedTeams:[],
 					currentEditPage: 1 as number,
 					initialPagination: [0,8],
 					maxPokemonPerPage: 8 as number,
@@ -49,6 +50,13 @@ export default createStore({
 				removePokemonFromCurrentEditTeam(state, selectedPokemon:IPokemon){
 					const pokemonIndex = state.currentEditTeam.indexOf(selectedPokemon)
 					state.currentEditTeam.splice(pokemonIndex, 1)
+				},
+				removeCurentTeamObject(state){
+					state.currentEditTeam.length = 0
+					state.currentTeamObject = {}
+				},
+				pushToSavedTeams(state, payload){
+					state.savedTeams.push({...payload})
 				}
 			},
 			actions:{

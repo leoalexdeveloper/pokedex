@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex flex-column">
-    <div class="pokemon-mount-team-board p-2 border rounded d-flex flex-row justify-content-between align-items-center position-sticky top-0 start-0">
+  <div class="pokemon-mount-team-board d-flex flex-column position-sticky top-0 start-0 border rounded">
+    <div class="p-2 rounded d-flex flex-row justify-content-between align-items-center">
       <div v-for:="(i, index) in maxPokemonsOnTeam">
         <div v-if:="currentEditTeam[index]">
           <PokemonMountTeamSlot :pokemon="currentEditTeam[index]"/>
