@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 d-flex justify-content-center position-absolute bottom-0">
+    <div class="w-100 d-flex justify-content-center position-sticky bottom-0 start-0">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
 

@@ -5,7 +5,7 @@ const api = axios.create({
 })
 
 export default{
-	get(uri:string){
-		return api.get(uri).then(res => res.data)
+	async get(uri:string){
+		return await api.get(uri).then(res => res.data)
 	}
 }

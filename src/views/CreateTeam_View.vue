@@ -1,8 +1,8 @@
 <template>
     <div>
       <PokemonMountTeamBoard />
+      <router-view class="p-5 poistion-sticky top-0 start-0" :key="route.params.page"></router-view>
       <PaginationComp v-on:paginate="callPaginatedPokemons"/>
-      <router-view :key="route.params.page"></router-view>
     </div>
 </template>
 
@@ -12,9 +12,11 @@ import { useStore } from "vuex"
 import { useRoute } from "vue-router"
 
 //imports components
-import type { TPaginationResult } from "../types/PaginationComp"
 import PaginationComp from "../components/PaginationComp.vue"
 import PokemonMountTeamBoard from "../components/PokemonMountTeamBoard.vue"
+
+//imports types
+import type { TPaginationResult } from "../types/PaginationComp"
 
 //data vue libs
 const store = useStore()

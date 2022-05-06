@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row flex-wrap">
+  <div class="d-flex flex-row flex-wrap justify-content-center">
     <PokemonCard v-for:="pokemon in store.state.pokemons.pokemonList.results" :pokemon="pokemon"/>
   </div>
 </template>

@@ -33,18 +33,16 @@ const props = defineProps({
 })
 
 //data var
-const pokemonList:IPokemon[] = reactive(store.state.pokemons.pokemonList.results)
 const currentEditTeam:IPokemon[] = reactive(store.state.pokemons.currentEditTeam)
 const maxPokemonsOnTeam:Ref<number> = ref<number>(store.state.pokemons.maxPokemonsOnTeam)
 
 //methods
 const pickPokemon = () => {
-	const findSlectedPokemon = pokemonList.find((pokemon:IPokemon) => pokemon.id === props.pokemon.id)
+	const findSlectedPokemon = store.state.pokemons.pokemonList.results.find((pokemon:IPokemon) => pokemon.id === props.pokemon.id)
 	store.commit("setPokemonOnCurrentEditTeam", findSlectedPokemon)
 }
 
 const isPokemonInMyTeam = () => {
-	const currentEditTeam = store.state.pokemons.currentEditTeam
 	return currentEditTeam.find((pokemon:IPokemon) => pokemon.id === props.pokemon.id)
 }
 

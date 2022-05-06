@@ -7,12 +7,12 @@ console.log({page:store.state.pokemons.currentEditPage})
 </script>
 
 <template>
- <div>
+ <div class="container">
      <NavBar />
      <router-view></router-view>
  </div>
 </template>
 
 <style>
-
+@import "./assets/css/app.scss"
 </style>

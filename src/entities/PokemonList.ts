@@ -1,5 +1,6 @@
 import IPokemonList from "../interfaces/PokemonList"
 import IPokemon from "../interfaces/Pokemon"
+import Utils from "../utils/Utils"
 
 export default class PokemonList<T extends IPokemon> implements IPokemonList<IPokemon>{
 	constructor(
@@ -10,6 +11,7 @@ export default class PokemonList<T extends IPokemon> implements IPokemonList<IPo
 	){
 		this.setPokemonId()
 		this.setPokemonImg()
+		this.capsFirstLetter()
 	}
 
 	setPokemonId(){
@@ -26,6 +28,12 @@ export default class PokemonList<T extends IPokemon> implements IPokemonList<IPo
 			const mainImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`
 			const altImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`
 			pokemon["img"] = {mainImg, altImg}
+		})
+	}
+
+	capsFirstLetter(){
+		this.results.forEach(pokemon => {
+			pokemon.name = Utils.capsFirstLetter(pokemon.name)
 		})
 	}
 }

@@ -7,20 +7,34 @@
 </template>
 
 <script lang="ts" setup>
-import FormComp from "../components/FormComp.vue"
+//imports vue lib
 import { useRoute } from "vue-router"
 import { useStore } from "vuex"
 import { reactive, computed, onBeforeMount } from "vue"
+
+//imports components
+import FormComp from "../components/FormComp.vue"
+
+//import entities
 import ETeam from "../entities/Team"
+
+//import interfaces
 import ITeam from "../interfaces/Team"
 import IPokemon from "../interfaces/Pokemon"
+
+//import types
 import type { TPaginationResult } from "../types/PaginationComp"
 
+//data vue lib
 const store = useStore()
 const route = useRoute()
+
+//data var
 const currentTeamObject = reactive(store.state.pokemons.currentTeamObject)
 //const initialPagination:TPaginationResult = reactive<TPaginationResult>()
 
+
+//methods
 const createCurrentTeamObject = (teamName:string) => {
 	const newTeam:ITeam<IPokemon> = new ETeam(teamName)
 	store.commit("setCurrentTeamObject", newTeam)

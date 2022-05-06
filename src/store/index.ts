@@ -44,11 +44,11 @@ export default createStore({
 					state.currentEditPage = payload
 				},
 				setPokemonOnCurrentEditTeam(state, payload:IPokemon[]){
-					state.currentEditTeam.push(payload)
+					state.currentEditTeam.push({...payload})
 				},
-				removePokemonFromCurrentEditTeam(state, id:number){
-					const foundPokemon = state.currentEditTeam.find((pokemon:IPokemon) => id === pokemon.id)
-					console.log(foundPokemon)
+				removePokemonFromCurrentEditTeam(state, selectedPokemon:IPokemon){
+					const pokemonIndex = state.currentEditTeam.indexOf(selectedPokemon)
+					state.currentEditTeam.splice(pokemonIndex, 1)
 				}
 			},
 			actions:{
