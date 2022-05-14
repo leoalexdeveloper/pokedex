@@ -1,5 +1,9 @@
+//import vue lib
 import { createRouter, createWebHistory } from "vue-router"
+
+//import views
 import HomeView from "../views/Home_View.vue"
+
 const routes = [
 	{path:"/", name:"Home", component:HomeView},
 	{
@@ -16,6 +20,14 @@ const routes = [
 						path:":page?",
 						name:"ShowPickPokemons",
 						component:()=>import(/**webpackChunkName*/"../components/PokemonPickBoard.vue"),
+						children:[
+							{
+								path:":selectedPokeId?",
+								name:"ShowPokemonSpecs",
+								component:()=>import(/**webpackChunkName*/"../components/PokemonSpecsBoard.vue")
+
+							}
+						]
 					}
 				]
 			}

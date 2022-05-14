@@ -1,10 +1,17 @@
+//import interfaces
 import IPokemonAttrs from "../interfaces/PokemonAttrs"
-import type { TAbility, TSpecie, TType, TStat } from "../types/PokemonAttrs"
+
+//import types
+import type { TAbilities, TSpecies, TTypes, TStats } from "../types/PokemonAttrs"
+import type { TImg } from "../types/Pokemon"
+
 export default class PokemonAttrs implements IPokemonAttrs{
 	constructor(
-        public abilities:TAbility,
-        public species:TSpecie,
-        public types:TType,
-        public stats:TStat
+        public id:number,
+        public img:TImg,
+        public abilities:TAbilities,
+        public species:TSpecies,
+        public types:TTypes,
+        public stats:TStats
 	){}
 }

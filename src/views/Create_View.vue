@@ -1,12 +1,12 @@
 <template>
-    <div class="create-container">
-        <FormComp v-if:="hasTeamObject" v-on:submitFormData="createCurrentTeamObject"/>
+    <div class="create-container col-12">
+        <FormComp v-if:="hasTeamObject" v-on:submitFormData="createCurrentTeamObject" placeholder="Insert your team name" :cancel="false"/>
         <router-view v-if:="!hasTeamObject" ></router-view>
-        {{hasTeamObject}}
     </div>
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable @typescript-eslint/no-unused-vars */
 //imports vue lib
 import { useRoute } from "vue-router"
 import { useStore } from "vuex"
@@ -47,9 +47,8 @@ const hasTeamObject = computed(()=>{
 
 //hooks
 onBeforeMount(()=>{
-	const [_, limit] = store.state.pokemons.initialPagination
+	const limit = store.state.pokemons.initialPagination[1]
 	const offset = (Number(route.params.page) * store.state.pokemons.maxPokemonPerPage) - store.state.pokemons.maxPokemonPerPage
-	console.log(offset, limit)
 	store.dispatch("getPokemonListFromApi", `pokemon?limit=${limit}&offset=${offset}`)
 })
 </script>

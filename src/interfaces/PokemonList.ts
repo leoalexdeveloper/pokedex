@@ -1,3 +1,4 @@
+//import interfaces
 import IPokemon from "../interfaces/Pokemon"
 
 export default interface IPokemonList<T extends IPokemon>{

@@ -1,7 +1,12 @@
 <template>
-    <div>
-      <PokemonMountTeamBoard />
-      <router-view class="p-5 poistion-sticky top-0 start-0" :key="route.params.page"></router-view>
+    <div class="col-12">
+      <PokemonMountTeamBoard/>
+      <router-view class="p-sm-0 p-lg-5  poistion-sticky top-0 start-0"
+                    v-slot="{Component}">
+        <transition name="slide" mode="out-in">
+          <component :is="Component" :key="route.params.page"></component>
+        </transition>
+      </router-view>
       <PaginationComp v-on:paginate="callPaginatedPokemons"/>
     </div>
 </template>
@@ -24,9 +29,26 @@ const route = useRoute()
 
 //methods
 const callPaginatedPokemons  = ([offset, limit]:TPaginationResult)=> {
-	console.log(offset, limit)
 	store.dispatch("getPokemonListFromApi", `pokemon?limit=${limit}&offset=${offset}`)
 	store.commit("setCurrentEditPage", Number(route.params.page))
 }
 
 </script>
+
+<style lang="css" scoped>
+.slide-enter-active,
+.slide-leave-active{
+  transition:opacity 1s, transform 1s, filter 1.5s;
+}
+
+.slide-enter-from{
+  opacity:0;
+  transform:translateX(-50%);
+  filter: blur(0px)
+}
+.slide-leave-to{
+opacity:0;
+transform:translateX(100%);
+filter: blur(20px);
+}
+</style>

@@ -1,3 +1,4 @@
+//import types
 import type { TImg } from "../types/Pokemon"
 
 export default interface IPokemon{

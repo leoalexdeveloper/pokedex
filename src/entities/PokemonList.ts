@@ -1,5 +1,8 @@
+//import interfaces
 import IPokemonList from "../interfaces/PokemonList"
 import IPokemon from "../interfaces/Pokemon"
+
+//import classes
 import Utils from "../utils/Utils"
 
 export default class PokemonList<T extends IPokemon> implements IPokemonList<IPokemon>{

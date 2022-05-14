@@ -1,15 +1,12 @@
 .pokemon-empty-slot-container{
-  min-width:150px;
-  max-width:150px;
-  min-height:200px;
-  max-height:200px;
+  min-width:5rem;
+  max-width:5rem;
   //background:rgba(150,150,150,0.6)
 }
 .pokemon-empty-slot-img{
-  min-width:100px;
-  max-width:100px;
-  min-height:100px;
-  max-height:100px;
+  min-width:5rem;
+  max-width:5rem;
+  height:3rem;
   object-fit:contain;
   object-position:center;
 }

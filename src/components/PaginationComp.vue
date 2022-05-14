@@ -1,15 +1,17 @@
 <template>
-    <div class="w-100 d-flex justify-content-center position-sticky bottom-0 start-0">
+    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center position-sticky bottom-0 start-0">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
 
-              <div v-if:="firstConditional()">
-                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:first()}}">
-                  <li class="page-item"><a class="page-link" href="#">First</a></li>
-                </router-link>
-              </div>
-              <div v-else:="">
-                <li disabled class="page-item"><a class="page-link" href="#">First</a></li>
+              <div v-if:="!widthSize">
+                <div v-if:="firstConditional()">
+                  <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:first()}}">
+                    <li class="page-item"><a class="page-link" href="#">First</a></li>
+                  </router-link>
+                </div>
+                <div v-else:="">
+                  <li disabled class="page-item"><a class="page-link" href="#">First</a></li>
+                </div>
               </div>
 
               <div v-if:="back10Conditional()">
@@ -50,15 +52,16 @@
                 <li disabled class="page-item"><a class="page-link" href="#">Forward10</a></li>
               </div>
 
-              <div v-if:="lastConditional()">
-                <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:last()}}">
-                  <li class="page-item"><a class="page-link" href="#">Last</a></li>
-                </router-link>
+              <div v-if:="!widthSize">
+                <div v-if:="lastConditional()">
+                  <router-link :to="{name:`ShowPickPokemons`, params:{teamName:teamName, page:last()}}">
+                    <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                  </router-link>
+                </div>
+                <div v-else:="">
+                  <li disabled class="page-item"><a class="page-link" href="#">Last</a></li>
+                </div>
               </div>
-              <div v-else:="">
-                <li disabled class="page-item"><a class="page-link" href="#">Last</a></li>
-              </div>
-
             </ul>
         </nav>
     </div>
@@ -68,7 +71,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 //imports libs
-import { Ref, ref, onUpdated, defineEmits } from "vue"
+import { Ref, ref, onUpdated, onMounted, defineEmits } from "vue"
 import { useStore } from "vuex"
 import { useRoute } from "vue-router"
 
@@ -87,6 +90,7 @@ const teamName:Ref<string>          = ref(String(route.params.teamName))
 const maxPokemonFromApi:Ref<number> = ref(store.state.pokemons.pokemonList.count)
 const maxPokemonPerPage:Ref<number> = ref(store.state.pokemons.maxPokemonPerPage)
 const totalPageNumber:Ref<number>   = ref(Math.round(maxPokemonFromApi.value / maxPokemonPerPage.value))
+const widthSize:Ref<boolean> = ref<boolean>(false)
 
 //methods
 const first     = () => 1
@@ -115,10 +119,29 @@ const nextConditional      = () => Number(route.params.page) < totalPageNumber.v
 const forward10Conditional = () => Number(route.params.page) < totalPageNumber.value - 10
 const lastConditional      = () => Number(route.params.page) < totalPageNumber.value
 
+const returnWidth = () => {
+	window.onresize = () => {
+		widthSizeReturn()
+	}
+}
+
+const widthSizeReturn = () => {
+	if(window.innerWidth < 576){
+		widthSize.value = true
+	}else{
+		widthSize.value = false
+	}
+}
+
 //hooks
-onUpdated(()=>{
-	updateVuexCurrentEditPage()
-	paginate()
+onMounted(()=>{
+	returnWidth()
+	widthSizeReturn()
 })
 
+onUpdated(()=>{
+	updateVuexCurrentEditPage()
+	widthSizeReturn()
+	paginate()
+})
 </script>

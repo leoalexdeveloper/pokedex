@@ -5,8 +5,10 @@
 </template>
 
 <script lang="ts" setup>
+//imports lib vue
 import { defineProps } from "vue"
 
+//props
 defineProps({
 	path:{
 		type:String,

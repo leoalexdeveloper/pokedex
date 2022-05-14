@@ -1,3 +1,7 @@
 .pokemon-mount-team-board{
   z-index:1;
+  transition: height 1s;
+}
+.minimize-bar{
+  z-index:9999;
 }

@@ -1,5 +1,8 @@
+//import interfaces
 import IPokemon from "../interfaces/Pokemon"
-import { TImg } from "../types/Pokemon"
+
+//import types
+import type { TImg } from "../types/Pokemon"
 
 class Pokemon implements IPokemon{
 	constructor(
