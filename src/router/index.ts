@@ -37,7 +37,7 @@ const routes:RouteRecordRaw[] = [
 		]
 	},
 	{
-		path:"/pathMatch(.*)*", name:"NotFound", component:()=>import(/**webpackChunkName*/"../views/NotFound.vue")
+		path:"/:pathMatch(.*)*", name:"NotFound", component:()=>import(/**webpackChunkName*/"../views/NotFound.vue")
 	}
 ]
 
