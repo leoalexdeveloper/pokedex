@@ -1,10 +1,10 @@
 //import vue lib
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 //import views
 import HomeView from "../views/Home_View.vue"
 
-const routes = [
+const routes:RouteRecordRaw[] = [
 	{path:"/", name:"Home", component:HomeView},
 	{
 		path:"/create",
@@ -20,6 +20,9 @@ const routes = [
 						path:":page?",
 						name:"ShowPickPokemons",
 						component:()=>import(/**webpackChunkName*/"../components/PokemonPickBoard.vue"),
+						beforeEnter: (to) => {
+							if(Number(to.params.page) > 141) return {name:"NotFound"}
+						},
 						children:[
 							{
 								path:":selectedPokeId?",
@@ -32,6 +35,9 @@ const routes = [
 				]
 			}
 		]
+	},
+	{
+		path:"/pathMatch(.*)*", name:"NotFound", component:()=>import(/**webpackChunkName*/"../views/NotFound.vue")
 	}
 ]
 
