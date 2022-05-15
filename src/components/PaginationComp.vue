@@ -86,7 +86,7 @@ const store = useStore()
 const route = useRoute()
 
 //data var
-const teamName:Ref<string>          = ref(String(route.params.teamName))
+const teamName:Ref<string>          = ref(store.state.pokemons.currentTeamObject.name)
 const maxPokemonFromApi:Ref<number> = ref(store.state.pokemons.pokemonList.count)
 const maxPokemonPerPage:Ref<number> = ref(store.state.pokemons.maxPokemonPerPage)
 const totalPageNumber:Ref<number>   = ref(Math.round(maxPokemonFromApi.value / maxPokemonPerPage.value))
